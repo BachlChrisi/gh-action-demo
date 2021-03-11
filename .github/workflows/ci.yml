@@ -30,9 +30,17 @@ jobs:
       - name: copy file to remote server
         uses: nogsantos/scp-deploy@master
         with:
-          src: /home/runner/work/gh-actions-demo/gh-actions-demo/target/gh-actions-demo-1.0.0-SNAPSHOT.jar
+          src: /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar
           host: 130.61.159.92
           remote: /opt
           port: 22
           user: ubuntu
           key: ${{ secrets.ORAVM }}
+      - name: start on server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: java -jar /opt/gh-action-demo-1.0.0-SNAPSHOT.jar
+          host: 130.61.255.109
+          username: ubuntu
+          privateKey: ${{ secrets.ORAVM }}
+
