@@ -28,10 +28,19 @@ jobs:
         run: |
           ssh-keyscan -H -t rsa -v 130.61.159.92  >> ~/.ssh/known_hosts
 
+#      - name: copy file to remote server
+#        run: |
+#          echo "$my_ssh_key" > ~/.ssh/gh_actions_key
+#          chmod 600 ~/.ssh/gh_actions_key
+#          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar ubuntu@130.61.159.92:/opt
+#        env:
+#          my_ssh_key: ${{ secrets.ORAVM }}
       - name: copy file to remote server
-        run: |
-          echo "$my_ssh_key" > ~/.ssh/gh_actions_key
-          chmod 600 ~/.ssh/gh_actions_key
-          ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar ubuntu@130.61.159.92:/opt
-        env:
-          my_ssh_key: ${{ secrets.ORAVM }}
+        uses: appleboy/scp-action@master
+        with:
+          host: 130.61.159.92
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.ORAVM }}
+          source: "/home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar"
+          target: "/opt"
