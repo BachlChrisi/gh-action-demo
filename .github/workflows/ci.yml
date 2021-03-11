@@ -30,7 +30,6 @@ jobs:
 
       - name: copy file to remote server
         run: |
-          mkdir ~/.ssh
           echo "$my_ssh_key" > ~/.ssh/gh_actions_key
           chmod 600 ~/.ssh/gh_actions_key
           scp -i ~/.ssh/gh_actions_key /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar 130.61.159.92:/opt
