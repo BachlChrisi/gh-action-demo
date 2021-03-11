@@ -40,7 +40,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: java -jar /opt/gh-action-demo-1.0.0-SNAPSHOT.jar
-          host: 130.61.255.109
+          host: 130.61.159.92
           username: ubuntu
           privateKey: ${{ secrets.ORAVM }}
 
