@@ -28,3 +28,8 @@ jobs:
         run: |
           ssh-keyscan -H -t rsa -v 130.61.159.92  >> ~/.ssh/known_hosts
 
+      - name: copy file to remote server
+        run: |
+          scp /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar 130.61.159.92:/opt
+        env:
+          my_ssh_key: ${{ secrets.SSH_KEY }}
