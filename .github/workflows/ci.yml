@@ -32,7 +32,7 @@ jobs:
       - name: copy file to remote server
         run: |
           ls -l target/
-          scp target/actions-demo-1.0.0-SNAPSHOT-runner.jar ${{ secrets.ORAVM_USER }}@${{ secrets.ORAVM_IP }}:
+          scp target/gh-action-demo-1.0.0-SNAPSHOT-runner.jar ${{ secrets.ORAVM_USER }}@${{ secrets.ORAVM_IP }}:
 #        with:
 #          src: /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar
 #          host: 130.61.159.92
