@@ -44,7 +44,7 @@ jobs:
       - name: start on server
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar
+          command: java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
           host: ${{ secrets.ORAVM_IP }}
           username: ${{ secrets.ORAVM_USER }}
           privateKey: ${{ secrets.ORAVM }}
