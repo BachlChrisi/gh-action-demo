@@ -30,7 +30,6 @@ jobs:
           ssh-keyscan -H -t rsa -v ${{ secrets.ORAVM_IP }}  >> ~/.ssh/known_hosts
 
       - name: copy file to remote server
-        uses: nogsantos/scp-deploy@master
         run: |
           ls -l target/
           scp target/actions-demo-1.0.0-SNAPSHOT-runner.jar ${{ secrets.ORAVM_USER }}@${{ secrets.ORAVM_IP }}:
