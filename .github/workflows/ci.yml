@@ -41,11 +41,20 @@ jobs:
 #          user: ubuntu
 #          key: ${{ secrets.ORAVM }}
 
-      - name: start on server
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
-          host: ${{ secrets.ORAVM_IP }}
-          username: ${{ secrets.ORAVM_USER }}
-          privateKey: ${{ secrets.ORAVM }}
-
+#      - name: start on server
+#        uses: garygrossgarten/github-action-ssh@release
+#        with:
+#          command: sudo java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
+#          host: ${{ secrets.ORAVM_IP }}
+#          username: ${{ secrets.ORAVM_USER }}
+#          privateKey: ${{ secrets.ORAVM }}
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: start on server
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: sudo java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
+        host: ${{ secrets.ORAVM_IP }}
+        username: ${{ secrets.ORAVM_USER }}
+        privateKey: ${{ secrets.ORAVM }}
