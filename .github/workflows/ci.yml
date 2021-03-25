@@ -32,7 +32,7 @@ jobs:
       - name: copy file to remote server
         run: |
           ls -l target/
-          scp target/gh-action-demo-1.0.0-SNAPSHOT-runner.jar ${{ secrets.ORAVM_USER }}@${{ secrets.ORAVM_IP }}:
+          scp target/gh-action-demo-1.0.0-SNAPSHOT-runner.jar ${{ secrets.ORAVM_USER }}@${{ secrets.ORAVM_IP }}:/opt/prod
 #        with:
 #          src: /home/runner/work/gh-action-demo/gh-action-demo/target/gh-action-demo-1.0.0-SNAPSHOT.jar
 #          host: 130.61.159.92
@@ -41,20 +41,22 @@ jobs:
 #          user: ubuntu
 #          key: ${{ secrets.ORAVM }}
 
-#      - name: start on server
-#        uses: garygrossgarten/github-action-ssh@release
-#        with:
-#          command: sudo java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
-#          host: ${{ secrets.ORAVM_IP }}
-#          username: ${{ secrets.ORAVM_USER }}
-#          privateKey: ${{ secrets.ORAVM }}
+      - name: start on server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: sudo java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
+          host: ${{ secrets.ORAVM_IP }}
+          username: ${{ secrets.ORAVM_USER }}
+          privateKey: ${{ secrets.ORAVM }}
   deploy:
+    needs:
+      - build
     runs-on: ubuntu-latest
     steps:
     - name: start on server
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: sudo java -jar ~/gh-action-demo-1.0.0-SNAPSHOT-runner.jar &
+        command: sudo systemctl restart quarkus
         host: ${{ secrets.ORAVM_IP }}
         username: ${{ secrets.ORAVM_USER }}
         privateKey: ${{ secrets.ORAVM }}
